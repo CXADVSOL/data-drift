@@ -10,7 +10,7 @@ forest_url = "https://archive.ics.uci.edu/ml/machine-learning-databases/forest-f
 forest_df = pd.read_csv(forest_url)
 print(forest_df.head())
 
-forest_csv_path = "./data/uci_forestfires_preprocessed.csv"
+forest_csv_path = "./data/forestfires_with_drift.csv"
 forest_df1 = pd.read_csv(forest_csv_path)
 forest_df1.to_csv(forest_csv_path, index=False)
 print(forest_df1.head())

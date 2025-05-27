@@ -25,5 +25,20 @@ Servers to detect data drift based on KS Test; PSI; Chi-Squared Test
 - Applies drift detection to the **forest fires dataset**.
 - This script likely runs drift detection on **live-simulated drifted data**.
 
+```Shell
+python3 -m venv DataDrift
+source DataDrioft/bin/activate
+pip install -r requirements.txt
+```
 
+```Python
+python3 ./data-drift-live-dataset.py
+```
+The ouptut of the above dataset analysis will show no drift.
+
+```Python
+python3 ./data-drift-live-withDrift.py
+```
+
+The output of the above will significant data drift in several of the columns associated with the pre-processed data
 

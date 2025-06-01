@@ -1,4 +1,6 @@
-# Re-import necessary packages after kernel reset
+# Import necessary packages after kernel reset
+import os
+import glob
 import pandas as pd
 import numpy as np
 import seaborn as sns
@@ -10,7 +12,12 @@ forest_url = "https://archive.ics.uci.edu/ml/machine-learning-databases/forest-f
 forest_df = pd.read_csv(forest_url)
 print(forest_df.head())
 
-forest_csv_path = "./data/uci_forestfires_preprocessed.csv"
+# Find the most recent forestfires_*.csv file in ./data
+csv_files = glob.glob("./data/forestfires_*.csv")
+latest_file = max(csv_files, key=os.path.getmtime)  # find latest by modification time
+forest_csv_path = latest_file
+print(f"✅ Using latest dataset file: {forest_csv_path}")
+
 forest_df1 = pd.read_csv(forest_csv_path)
 forest_df1.to_csv(forest_csv_path, index=False)
 print(forest_df1.head())

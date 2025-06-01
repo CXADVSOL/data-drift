@@ -1,19 +1,27 @@
-# Re-import necessary packages after kernel reset
+# Import necessary packages after kernel reset
+import os
+import glob
 import pandas as pd
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 from scipy.stats import ks_2samp
 
-# Step 1: Preprocess UCI Forest Fires Dataset
+# Step 1: Preprocess UCI Forest Fires Live Dataset
 forest_url = "https://archive.ics.uci.edu/ml/machine-learning-databases/forest-fires/forestfires.csv"
 forest_df = pd.read_csv(forest_url)
 print(forest_df.head())
 
-forest_csv_path = "./data/forestfires_with_drift.csv"
+# Find the most recent forestfires_*.csv file in ./data
+csv_files = glob.glob("./data/forestfires_*.csv")
+latest_file = max(csv_files, key=os.path.getmtime)  # find latest by modification time
+forest_csv_path = latest_file
+print(f"✅ Using latest dataset file: {forest_csv_path}")
+
 forest_df1 = pd.read_csv(forest_csv_path)
 forest_df1.to_csv(forest_csv_path, index=False)
 print(forest_df1.head())
+
 
 # Encode month and day to numerical values for modeling
 month_map = {'jan': 1, 'feb': 2, 'mar': 3, 'apr': 4, 'may': 5,

@@ -1,0 +1,96 @@
+   X  Y month  day  FFMC   DMC     DC  ISI  temp  RH  wind  rain  area
+0  7  5   mar  fri  86.2  26.2   94.3  5.1   8.2  51   6.7   0.0   0.0
+1  7  4   oct  tue  90.6  35.4  669.1  6.7  18.0  33   0.9   0.0   0.0
+2  7  4   oct  sat  90.6  43.7  686.9  6.7  14.6  33   1.3   0.0   0.0
+3  8  6   mar  fri  91.7  33.3   77.5  9.0   8.3  97   4.0   0.2   0.0
+4  8  6   mar  sun  89.3  51.3  102.2  9.6  11.4  99   1.8   0.0   0.0
+   X  Y  month  day  FFMC   DMC  ...  temp  RH  wind  rain  area   dataset
+0  7  5      3    5  86.2  26.2  ...   8.2  51   6.7   0.0   0.0  original
+1  7  4     10    2  90.6  35.4  ...  18.0  33   0.9   0.0   0.0  original
+2  7  4     10    6  90.6  43.7  ...  14.6  33   1.3   0.0   0.0  original
+3  8  6      3    5  91.7  33.3  ...   8.3  97   4.0   0.2   0.0  original
+4  8  6      3    7  89.3  51.3  ...  11.4  99   1.8   0.0   0.0  original
+
+[5 rows x 14 columns]
+Columns in df: Index(['X', 'Y', 'month', 'day', 'FFMC', 'DMC', 'DC', 'ISI', 'temp', 'RH',
+       'wind', 'rain', 'area'],
+      dtype='object')
+Columns in df1: Index(['X', 'Y', 'month', 'day', 'FFMC', 'DMC', 'DC', 'ISI', 'temp', 'RH',
+       'wind', 'rain', 'area', 'dataset'],
+      dtype='object')
+Shape of df: (517, 13)
+Shape of df1: (1034, 14)
+Combined dataframe head:
+   X  Y  month  day  FFMC   DMC     DC  ISI  temp  RH  wind  rain  area dataset
+0  7  5      3    5  86.2  26.2   94.3  5.1   8.2  51   6.7   0.0   0.0     NaN
+1  7  4     10    2  90.6  35.4  669.1  6.7  18.0  33   0.9   0.0   0.0     NaN
+2  7  4     10    6  90.6  43.7  686.9  6.7  14.6  33   1.3   0.0   0.0     NaN
+3  8  6      3    5  91.7  33.3   77.5  9.0   8.3  97   4.0   0.2   0.0     NaN
+4  8  6      3    7  89.3  51.3  102.2  9.6  11.4  99   1.8   0.0   0.0     NaN
+Combined dataframe tail:
+      X  Y  month  day  FFMC    DMC  ...  temp  RH  wind  rain   area  dataset
+1546  4  3      8    7  81.6   56.7  ...  32.8  22   4.7   0.0   6.44  drifted
+1547  2  4      8    7  81.6   56.7  ...  26.9  61   7.8   0.0  54.29  drifted
+1548  7  4      8    7  81.6   56.7  ...  26.2  60   8.7   0.0  11.16  drifted
+1549  1  4      8    6  94.4  146.0  ...  30.6  32   6.0   0.0   0.00  drifted
+1550  6  3     11    2  79.5    3.0  ...  16.8  21   6.5   0.0   0.00  drifted
+
+[5 rows x 14 columns]
+Shape of combined_df: (1551, 14)
+
+Kolmogorov-Smirnov Test Results:
+Column: X
+  KS Statistic: 0.0000
+  P-value: 1.0000
+  The two distributions for X are not significantly different.
+--------------------
+Column: Y
+  KS Statistic: 0.0000
+  P-value: 1.0000
+  The two distributions for Y are not significantly different.
+--------------------
+Column: FFMC
+  KS Statistic: 0.0000
+  P-value: 1.0000
+  The two distributions for FFMC are not significantly different.
+--------------------
+Column: DMC
+  KS Statistic: 0.0000
+  P-value: 1.0000
+  The two distributions for DMC are not significantly different.
+--------------------
+Column: DC
+  KS Statistic: 0.0000
+  P-value: 1.0000
+  The two distributions for DC are not significantly different.
+--------------------
+Column: ISI
+  KS Statistic: 0.0000
+  P-value: 1.0000
+  The two distributions for ISI are not significantly different.
+--------------------
+Column: temp
+  KS Statistic: 0.1954
+  P-value: 0.0000
+  The two distributions for temp are significantly different.
+--------------------
+Column: RH
+  KS Statistic: 0.1431
+  P-value: 0.0000
+  The two distributions for RH are significantly different.
+--------------------
+Column: wind
+  KS Statistic: 0.2331
+  P-value: 0.0000
+  The two distributions for wind are significantly different.
+--------------------
+Column: rain
+  KS Statistic: 0.0068
+  P-value: 1.0000
+  The two distributions for rain are not significantly different.
+--------------------
+Column: area
+  KS Statistic: 0.0000
+  P-value: 1.0000
+  The two distributions for area are not significantly different.
+--------------------

@@ -7,6 +7,24 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from scipy.stats import ks_2samp
 
+# Splunk Observability Cloud Otel tracing
+from splunk_otel.tracing import start_tracing
+
+start_tracing()
+
+# Also accepts optional settings. For example:
+#
+# start_tracing(
+#   service_name='<my-python-service>',
+#   span_exporter_factories=[OTLPSpanExporter]
+#   access_token='<access_token>',
+#   max_attr_length=12000,
+#   trace_response_header_enabled=True,
+#   resource_attributes={
+#    'service.version': '<your_version>',
+#    'deployment.environment': '<your_environment>',
+#  })
+
 # Step 1: Preprocess UCI Forest Fires Dataset
 forest_url = "https://archive.ics.uci.edu/ml/machine-learning-databases/forest-fires/forestfires.csv"
 forest_df = pd.read_csv(forest_url)

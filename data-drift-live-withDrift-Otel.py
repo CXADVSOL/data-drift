@@ -20,7 +20,7 @@ from opentelemetry.sdk.metrics.export import PeriodicExportingMetricReader
 
 # OpenTelemetry Setup
 exporter = OTLPMetricExporter(
-    endpoint="https://api.us1.signalfx.com/v2/otlp",
+    endpoint="https://ingest.us1.signalfx.com/v2/otlp",
     headers={"X-SF-TOKEN": os.getenv("SPLUNK_ACCESS_TOKEN")}
 )
 reader = PeriodicExportingMetricReader(exporter, export_interval_millis=10000)

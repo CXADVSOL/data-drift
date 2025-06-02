@@ -1,6 +1,6 @@
 import os
 import requests
-from datetime import datetime
+from datetime import datetime,timezone
 
 # URL of the dataset
 url = "https://archive.ics.uci.edu/ml/machine-learning-databases/forest-fires/forestfires.csv"
@@ -9,8 +9,11 @@ url = "https://archive.ics.uci.edu/ml/machine-learning-databases/forest-fires/fo
 data_dir = "data"
 os.makedirs(data_dir, exist_ok=True)
 
-# Generate the timestamp string
-timestamp = datetime.utcnow().strftime("%d%B%Y%H%MUTC")  # e.g., 1June20251551UTC
+# Generate the timestamp string with milliseconds
+now = datetime.now(timezone.utc)
+# Grab microseconds, convert to milliseconds
+milliseconds = int(now.microsecond / 1000)
+timestamp = now.strftime(f"%d%B%Y%H%M%S{milliseconds:03d}UTC")  # e.g., 1June20251551123UTC
 
 # Create the filename
 filename = f"forestfires_{timestamp}.csv"

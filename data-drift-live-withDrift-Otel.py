@@ -11,6 +11,8 @@ import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 from scipy.stats import ks_2samp
+
+# OpenTelemetry required imports
 from opentelemetry import metrics
 from opentelemetry.sdk.metrics import MeterProvider
 from opentelemetry.exporter.otlp.proto.http.metric_exporter import OTLPMetricExporter
@@ -79,6 +81,15 @@ for col in numeric_cols:
     plt.legend()
     plt.show()
 
+# Clean numeric columns to ensure no strings are present
+for col in numeric_cols:
+    forest_df[col] = pd.to_numeric(forest_df[col], errors='coerce')
+    forest_df1[col] = pd.to_numeric(forest_df1[col], errors='coerce')
+
+# Optionally drop rows with NaN in numeric columns
+forest_df.dropna(subset=numeric_cols, inplace=True)
+forest_df1.dropna(subset=numeric_cols, inplace=True)
+
 # KS Test
 print("\nKolmogorov-Smirnov Test Results:")
 drifted_features = 0
@@ -100,9 +111,15 @@ for col in numeric_cols:
 # Send metrics to Splunk Observability
 drift_counter.add(drifted_features, attributes={"dataset": "forestfires"})
 
-def p_value_callback(observer):
+def p_value_callback(options):
+    measurements = []
     for feature, p_val in p_values.items():
-        observer.observe(p_val, attributes={"feature": feature})
-p_value_gauge._callbacks.append(p_value_callback)
+        measurements.append((p_val, {"feature": feature}))
+    return measurements
+
+p_value_gauge = meter.create_observable_gauge(
+    name="forestfires_ks_p_value",
+    description="KS test p-value for each numeric feature",
+    callbacks=[p_value_callback]
 
 print("✅ Drift metrics sent to Splunk Observability.")

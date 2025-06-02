@@ -1,4 +1,4 @@
-# Prior to using this sctipt, export the following:
+# Prior to using this script, export the following:
 # export SPLUNK_ACCESS_TOKEN="<your-token-here>"
 # for instance https://api.us1.signalfx.com/GNds_HQA4AE
 # Token Otel-Data-Drift-Ingest
@@ -20,7 +20,7 @@ from opentelemetry.sdk.metrics.export import PeriodicExportingMetricReader
 
 # OpenTelemetry Setup
 exporter = OTLPMetricExporter(
-    endpoint="https://ingest.us1.signalfx.com/v2/otlp",
+    endpoint="https://api.us1.signalfx.com/v2/otlp",
     headers={"X-SF-TOKEN": os.getenv("SPLUNK_ACCESS_TOKEN")}
 )
 reader = PeriodicExportingMetricReader(exporter, export_interval_millis=10000)
@@ -121,5 +121,6 @@ p_value_gauge = meter.create_observable_gauge(
     name="forestfires_ks_p_value",
     description="KS test p-value for each numeric feature",
     callbacks=[p_value_callback]
+)
 
-print("✅ Drift metrics sent to Splunk Observability.")
+print("Drift metrics sent to Splunk Observability.")

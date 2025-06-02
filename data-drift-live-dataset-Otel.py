@@ -1,4 +1,4 @@
-# Prior to using this sctipt, export the following:
+# Prior to using this script, export the following:
 # export SPLUNK_ACCESS_TOKEN="<your-token-here>"
 # for instance https://api.us1.signalfx.com/GNds_HQA4AE
 # Token Otel-Data-Drift-Ingest
@@ -20,7 +20,7 @@ from opentelemetry.sdk.metrics.export import PeriodicExportingMetricReader
 
 # OpenTelemetry Setup
 exporter = OTLPMetricExporter(
-    endpoint="https://ingest.us1.signalfx.com/v2/otlp",
+    endpoint="https://api.us1.signalfx.com/v2/otlp",
     headers={"X-SF-TOKEN": os.getenv("SPLUNK_ACCESS_TOKEN")}
 )
 reader = PeriodicExportingMetricReader(exporter, export_interval_millis=10000)
@@ -47,7 +47,7 @@ print(forest_df.head())
 csv_files = glob.glob("./data/forestfires_*.csv")
 latest_file = max(csv_files, key=os.path.getmtime)
 forest_csv_path = latest_file
-print(f"✅ Using latest dataset file: {forest_csv_path}")
+print(f"Using latest dataset file: {forest_csv_path}")
 
 forest_df1 = pd.read_csv(forest_csv_path)
 forest_df1.to_csv(forest_csv_path, index=False)
@@ -123,5 +123,4 @@ p_value_gauge = meter.create_observable_gauge(
     callbacks=[p_value_callback]
 )
 
-
-print("✅ Drift metrics sent to Splunk Observability.")
+print(" Drift metrics sent to Splunk Observability.")
